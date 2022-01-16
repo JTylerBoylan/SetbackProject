@@ -429,14 +429,11 @@ function countPoints() {
     let redTeamTally = 0;
     let blueTeamTally = 0;
     let points = [0,0];
-    console.log("Point cards:",pointCards);
-    console.log("Red stash:",gameData.redTeam.stash);
     gameData.redTeam.stash.forEach(card => {
         redTeamTally += card2score(card);
         if (pointCards.includes(card))
             points[0] += 1;
     });
-    console.log("Blue stash:",gameData.blueTeam.stash);
     gameData.blueTeam.stash.forEach(card => {
         blueTeamTally += card2score(card);
         if (pointCards.includes(card))
@@ -448,7 +445,6 @@ function countPoints() {
         points[1] += 1;
     else
         points[gameData.players[gameData.dealer].team] += 1;
-    console.log("Points:",points);
     return points;
 }
 
