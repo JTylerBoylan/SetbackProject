@@ -132,6 +132,7 @@
     color: antiquewhite;
     padding-top: 5vh;
     z-index: 3;
+    display: 'none';
 }
 #winner button {
     width: 25vw;
