@@ -5,7 +5,7 @@ let reset = false;
 
 // SERVER CONNECTION
 function connectToServer() {
-    socket = io.connect('http://localhost:4200');
+    socket = io.connect('http://localhost:3000');
     socket.on('connect', function(data) {
         socket.emit('join', myData);
     });

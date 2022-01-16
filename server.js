@@ -25,7 +25,8 @@ io.on('connection', function(client) {
     clientResetEvent(client);
 });
 
-server.listen(4200);
+server.listen(3000);
+console.log("Listening at port 3000");
 
 /*
         CLIENT EVENTS
