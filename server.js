@@ -265,7 +265,7 @@ function deal(player) {
 function bid(player) {
     let pbid = player.selectedBid;
     if (pbid < 7) {
-        if (pbid >= gameData.bid) {
+        if (pbid > gameData.bid) {
             gameData.bid = pbid;
             gameData.bidder = player.index;
             gameData.lastGameLog = player.displayName + ' bids ' + pbid + ".  " + nextPlayer().displayName + "'s turn.";
