@@ -1,0 +1,16 @@
+{
+  "name": "setback",
+  "version": "1.0.0",
+  "description": "Setback Card Game coded by Tyler",
+  "main": "server.js",
+  "scripts": {
+    "start": "server.js"
+  },
+  "author": "JTylerBoylan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "jquery": "^3.6.0",
+    "socket.io": "^4.4.0"
+  }
+}

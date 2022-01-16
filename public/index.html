@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+    </head>
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="src/index.js"></script>
+    <link href="src/style.css" rel="stylesheet" type="text/css"/>
+    <body>
+        <div id="container">
+            <div id="entername">
+                <div id="nametext">
+                    <h1>ENTER NAME</h1>
+                </div>
+                <div id="nameinput">
+                    <input type="text" id="displayname" name="displayname" placeholder="Player Name">
+                </div>
+                <div id="namebutton">
+                    <button onclick="onNameButtonClick()">Go!</button>
+                </div>
+            </div>
+            <div id="teamselect">
+                <div id="teamtext">
+                    <h1>SELECT TEAM</h1>
+                </div>
+                <div id="redteam" class="team">
+                    <button class="teambutton" onclick="onTeamButtonClick(0)">
+                        RED TEAM
+                    </button>
+                </div>
+                <div id="blueteam" class="team">
+                    <button class="teambutton" onclick="onTeamButtonClick(1)">
+                        BLUE TEAM
+                    </button>
+                </div>
+            </div>
+            <div id="game">
+                <div id="resetbutton">
+                    <button onclick="resetGame()">RESET</button>
+                </div>
+                <div id="gamelog">
+                    <h1 id = "gamelogtxt">Waiting for players...</h1>
+                </div>
+                <div id="winner">
+                    <h1>The winner is...</h1><br>
+                    <h1 id="winner1">Winner 1</h1><br>
+                    <h1>and</h1><br>
+                    <h1 id="winner2">Winner 2</h2><br>
+                    <button onclick="resetGame()">PLAY AGAIN</button>
+                </div>
+                <div id="score">
+                    <table>
+                        <tr>
+                            <th id="redteamtext">RED</th>
+                            <th id="blueteamtext">BLUE</th>
+                        </tr>
+                        <tr>
+                            <td id="redteamscore">0</td>
+                            <td id="blueteamscore">0</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="hand">
+                    <button class="cardbutton" onclick="selectCard(0)">
+                        <img id="card0image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(1)">
+                        <img id="card1image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(2)">
+                        <img id="card2image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(3)">
+                        <img id="card3image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(4)">
+                        <img id="card4image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(5)">
+                        <img id="card5image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                </div>
+                <div id="players">
+                    <div id="playerleft" class="player">
+                        <h1 id="playerleftname">Empty</h1>
+                        <img id="playerleftimage" class="playerimage" src="src/images/playerhand.png" \>
+                    </div>
+                    <div id="playertop" class="player">
+                        <h1 id="playertopname">Empty</h1>
+                        <img id="playertopimage" class="playerimage" src="src/images/playerhand.png" \>
+                    </div>
+                    <div id="playerright" class="player">
+                        <h1 id="playerrightname">Empty</h1>
+                        <img id="playerrightimage" class="playerimage" src="src/images/playerhand.png" \>
+                    </div>
+                </div>
+                <div id="pile">
+                    <img id="pileimage" src="src/images/pile.png" \>
+                    <img id="myplayimage" class="playimage" src="src/images/cards/H.png" \>
+                    <img id="leftplayimage" class="playimage" src="src/images/cards/H.png" \>
+                    <img id="topplayimage" class="playimage" src="src/images/cards/H.png" \>
+                    <img id="rightplayimage" class="playimage" src="src/images/cards/H.png" \>
+                </div>
+                <div id="pilecards">
+                    <button class="cardbutton" onclick="selectCard(6)">
+                        <img id="card6image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(7)">
+                        <img id="card7image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(8)">
+                        <img id="card8image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(9)">
+                        <img id="card9image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(10)">
+                        <img id="card10image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                    <button class="cardbutton" onclick="selectCard(11)">
+                        <img id="card11image" class="cardimage" src="src/images/cards/H.png"/>
+                    </button>
+                </div>
+                <div id="playbutton">
+                    <button onclick="play()">PLAY</button>
+                </div>
+                <div id="sortbutton">
+                    <button onclick="sort()">SORT</button>
+                </div>
+                <div id="biddiv">
+                    <button id="bid1" class="bidbutton" onclick="selectBid(1)">
+                        BID 1
+                    </button>
+                    <button id="bid2" class="bidbutton" onclick="selectBid(2)">
+                        BID 2
+                    </button>
+                    <button id="bid3" class="bidbutton" onclick="selectBid(3)">
+                        BID 3
+                    </button>
+                    <button id="bid4" class="bidbutton" onclick="selectBid(4)">
+                        BID 4
+                    </button>
+                    <button id="bid5" class="bidbutton" onclick="selectBid(5)">
+                        BID 5
+                    </button>
+                    <button id="bid6" class="bidbutton" onclick="selectBid(6)">
+                        BID 6
+                    </button>
+                    <button id="bid6out" onclick="selectBid(7)">
+                        BID 6 & OUT
+                    </button>
+                    <button id="pass" onclick="selectBid(8)">
+                        PASS
+                    </button>
+                </div>
+                <div id="suitdiv">
+                    <button id="suit0button" class="suitbutton" onclick="selectSuit(0)">SPADES</button>
+                    <button id="suit1button" class="suitbutton" onclick="selectSuit(1)">HEARTS</button>
+                    <button id="suit2button" class="suitbutton" onclick="selectSuit(2)">CLUBS</button>
+                    <button id="suit3button" class="suitbutton" onclick="selectSuit(3)">DIAMONDS</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
