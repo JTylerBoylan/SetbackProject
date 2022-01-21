@@ -8,7 +8,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 app.use(cors({
-    origin: 'http://setback.jtyler.site:3000'
+    origin: 'http://3.228.165.122:3000'
 }))
 app.use(express.static(__dirname + '/node_modules'));
 app.use('/src',express.static(__dirname + '/public'));
