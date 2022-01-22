@@ -1,4 +1,11 @@
-window.location.replace("http://setback.jtyler.site:3000");
+const PORT = 3000;
+
+function goToPort() {
+    if (window.location.port != PORT)
+        window.location.replace("http://setback.jtyler.site:" + PORT);
+}
+
+goToPort();
 
 let myData = {};
 let gameData = {};
@@ -7,7 +14,7 @@ let reset = false;
 
 // SERVER CONNECTION
 function connectToServer() {
-    socket = io.connect('http://setback.jtyler.site:3000');
+    socket = io.connect('http://setback.jtyler.site:' + PORT);
     socket.on('connect', function(data) {
         socket.emit('join', myData);
     });
