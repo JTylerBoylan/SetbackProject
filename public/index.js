@@ -1,3 +1,5 @@
+window.location.replace("http://setback.jtyler.site:3000");
+
 let myData = {};
 let gameData = {};
 let sortType = 0;
