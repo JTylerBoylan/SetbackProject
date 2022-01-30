@@ -397,8 +397,11 @@ function currentCards() {
 }
 
 function canPlay(player, card) {
-    if (player.index == gameData.leader)
+    if (player.index == gameData.leader) {
+        if (player.index == gameData.bidder && player.hand.length == 6 && card2suit(card) != gameData.trump)
+            return false;
         return true;
+    }
     let suit = card2suit(card);
     let leadCard = gameData.players[gameData.leader].current
     let leadsuit = leadCard == 52 ? gameData.trump : card2suit(leadCard);
