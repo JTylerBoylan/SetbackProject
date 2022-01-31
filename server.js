@@ -50,7 +50,7 @@ function clientLeaveEvent(client) {
     client.once('disconnect', function() {
         gameData.players.forEach(player => {
             if (player.clientID == client.id)
-                player.displayName == 'Empty';
+                player.displayName = 'Empty';
         })
     });
 }
