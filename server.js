@@ -52,6 +52,7 @@ function clientLeaveEvent(client) {
             if (player.clientID == client.id)
                 player.displayName = 'Empty';
         })
+        sendGameData();
     });
 }
 
