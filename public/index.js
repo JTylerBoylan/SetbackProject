@@ -19,6 +19,7 @@ function connectToServer() {
         socket.emit('join', myData);
     });
     socket.on('playerdata', function(playerData){
+        playerData.selectedCard = myData.selectedCard;
         myData = playerData;
     });
     socket.on('gamedata', function(gamedata){
@@ -280,42 +281,20 @@ function refreshWinner() {
     }
 }
 
-function refresh() {
-    reset = false;
-    refreshPlayerNames();
-    refreshHand();
-    refreshPlayCards();
-    refreshGameImages();
-    refreshGameLog();
-    refreshScore();
-    refreshWinner();
-}
+function refreshSelections() {
+    let cardPos = getHand().indexOf(myData.selectedCard);
+    let bidPos = myData.selectedBid;
+    let suitPos = myData.selectedSuit;
 
-function sendCardToBack(card){
-    let cardIdx = myData.hand.indexOf(card);
-    let drop = myData.hand.splice(cardIdx,1)[0];
-    myData.hand.push(drop);
-}
-
-function selectCard(cardPos) {
-    myData.selectedCard = getHand()[cardPos];
-    if (gameData.state == 3) {
-        sendCardToBack(myData.selectedCard);
-    } else {
-        for (let i = 0; i <= 11; i++){
-            let cardImage = document.getElementById("card" + i + "image");
-            if (i == cardPos){
-                cardImage.style.border = "solid rgb(184, 219, 180) 0.5vh";
-            } else {
-                cardImage.style.border = "solid rgb(76, 156, 69) 0.5vh";
-            }
+    for (let i = 0; i <= 11; i++){
+        let cardImage = document.getElementById("card" + i + "image");
+        if (i == cardPos){
+            cardImage.style.border = "solid rgb(184, 219, 180) 0.5vh";
+        } else {
+            cardImage.style.border = "solid rgb(76, 156, 69) 0.5vh";
         }
     }
-    refreshHand();
-}
 
-function selectBid(bidPos) {
-    myData.selectedBid = bidPos;
     for (let i = 1; i <= 6; i++){
         let bidButton = document.getElementById('bid' + i);
         if (i == bidPos) {
@@ -336,10 +315,7 @@ function selectBid(bidPos) {
     } else {
         passButton.style.backgroundColor = "antiquewhite";
     }
-}
 
-function selectSuit(suitPos) {
-    myData.selectedSuit = suitPos;
     for (let i = 0; i <= 3; i++){
         let cardImage = document.getElementById("suit" + i + "button");
         if (i == suitPos){
@@ -348,6 +324,42 @@ function selectSuit(suitPos) {
             cardImage.style.backgroundColor = "antiquewhite";
         }
     }
+}
+
+function refresh() {
+    reset = false;
+    refreshPlayerNames();
+    refreshHand();
+    refreshPlayCards();
+    refreshGameImages();
+    refreshGameLog();
+    refreshScore();
+    refreshWinner();
+    refreshSelections();
+}
+
+function sendCardToBack(card){
+    let cardIdx = myData.hand.indexOf(card);
+    let drop = myData.hand.splice(cardIdx,1)[0];
+    myData.hand.push(drop);
+}
+
+function selectCard(cardPos) {
+    myData.selectedCard = getHand()[cardPos];
+    if (gameData.state == 3)
+        sendCardToBack(myData.selectedCard);
+    refreshSelections();
+    refreshHand();
+}
+
+function selectBid(bidPos) {
+    myData.selectedBid = bidPos;
+    refreshSelections();
+}
+
+function selectSuit(suitPos) {
+    myData.selectedSuit = suitPos;
+    refreshSelections();
     refreshHand();
 }
 
