@@ -360,7 +360,7 @@ function selectBid(bidPos) {
 
 function selectSuit(suitPos) {
     myData.selectedSuit = suitPos;
-    myData.dropCards = getHand().slice(getHand().length > 6 ? 6 - getHand().length : 0);
+    myData.dropCards = getHand().slice(getHand().length > 6 ? 6 - getHand().length : 6);
     refreshSelections();
     refreshHand();
 }
