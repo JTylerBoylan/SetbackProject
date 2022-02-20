@@ -323,7 +323,7 @@ function offjack() {
     return ((gameData.trump+2)%4)*13 + 9;
 }
 
-function trimHandsToSuit(suit) {
+function trimHandsToSuit(bidder) {
     let suit = bidder.selectedSuit;
     let dropCards = bidder.dropCards;
     gameData.players.forEach(player => {
