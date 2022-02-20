@@ -96,17 +96,17 @@ function refreshPlayerNames(){
 }
 
 function card2value(card) {
-    if (card == 52)
-        return 50;
     let value = card%13;
     if (gameData.trump != -1) {
         if (Math.floor(card/13) == gameData.trump)
             value += 13;
         if (card == ((gameData.trump+2)%4)*13 + 9)
             value += 12.5;
+        if (card == 52)
+            value += 50;
     }
-    if (myData.dropCards.includes(card))
-        value -= 100;
+    if (gameData.state == 3 && myData.dropCards.includes(card))
+        value -= 500;
     return value;
 }
 
