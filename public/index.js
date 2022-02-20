@@ -105,6 +105,8 @@ function card2value(card) {
         if (card == ((gameData.trump+2)%4)*13 + 9)
             value += 12.5;
     }
+    if (myData.dropCards.includes(card))
+        value -= 100;
     return value;
 }
 
@@ -115,7 +117,6 @@ function getHand() {
         hand.sort(function(a,b) {
             switch(sortType){
                 case 1: return card2value(b) - card2value(a);
-                case 2: return card2value(a) - card2value(b);
             }
         });
     if (suit != undefined)
@@ -338,16 +339,16 @@ function refresh() {
     refreshSelections();
 }
 
-function sendCardToBack(card){
-    let cardIdx = myData.hand.indexOf(card);
-    let drop = myData.hand.splice(cardIdx,1)[0];
-    myData.hand.push(drop);
+function dropCard(card){
+    myData.dropCards.push(card);
+    if (myData.dropCards.length > getHand().length - 6);
+        myData.dropCards.splice(0,1);
 }
 
 function selectCard(cardPos) {
     myData.selectedCard = getHand()[cardPos];
-    if (gameData.state == 3)
-        sendCardToBack(myData.selectedCard);
+    if (gameData.state == 3 && myData.selectedSuit != undefined)
+        dropCard(myData.selectedCard);
     refreshSelections();
     refreshHand();
 }
@@ -359,6 +360,7 @@ function selectBid(bidPos) {
 
 function selectSuit(suitPos) {
     myData.selectedSuit = suitPos;
+    myData.dropCards = getHand().slice(getHand().length > 6 ? 6 - getHand().length : 0);
     refreshSelections();
     refreshHand();
 }
@@ -370,7 +372,7 @@ function unselectAll() {
 }
 
 function sort() {
-    sortType = (sortType+1)%3;
+    sortType = (sortType+1)%2;
     refreshHand();
 }
 

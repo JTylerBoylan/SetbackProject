@@ -324,11 +324,14 @@ function offjack() {
 }
 
 function trimHandsToSuit(suit) {
+    let suit = bidder.selectedSuit;
+    let dropCards = bidder.dropCards;
     gameData.players.forEach(player => {
        player.hand = player.hand.filter(
-           card => card == 52 
+           card => (card == 52 
         || card2suit(card) == suit
-        || card == offjack()
+        || card == offjack())
+        && !dropCards.includes(card)
         ).splice(0,6)
     });
 }
@@ -338,7 +341,7 @@ function trump(player) {
     gameData.lastGameLog = player.displayName + ' chooses ' + suit2str(player.selectedSuit) + ' as trump. ' 
         + gameData.players[gameData.dealer].displayName + "'s deal.";
     gameData.state = DEAL2;
-    trimHandsToSuit(player.selectedSuit);
+    trimHandsToSuit(player);
     sendPlayerData();
     sendGameData();
 }
@@ -399,7 +402,7 @@ function currentCards() {
 
 function canPlay(player, card) {
     if (player.index == gameData.leader) {
-        if (player.index == gameData.bidder && player.hand.length == 6 && card2suit(card) != gameData.trump)
+        if (player.index == gameData.bidder && player.hand.length == 6 && card2suit(card) != gameData.trump && card != offjack() && card != 52)
             return false;
         return true;
     }
