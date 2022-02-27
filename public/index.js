@@ -105,7 +105,7 @@ function card2value(card) {
         if (card == ((gameData.trump+2)%4)*13 + 9)
             value += 12.5;
     }
-    if (gameData.state == 3 && myData.dropCards.includes(card))
+    if (gameData.state == 3 && myData.dropCards != undefined && myData.dropCards.includes(card))
         value -= 500;
     return value;
 }
