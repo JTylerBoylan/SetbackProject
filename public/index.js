@@ -1,19 +1,15 @@
 const PORT = 3000;
 
-function goToPort() {
-    if (window.location.port != PORT)
-        window.location.replace("http://setback.jtyler.site:" + PORT);
-}
-
-goToPort();
+if (window.location.port != PORT)
+    window.location.replace("http://setback.jtyler.site:" + PORT);
 
 let myData = {};
 let gameData = {};
-let sortType = 0;
 let reset = false;
 
 // SERVER CONNECTION
 function connectToServer() {
+    //socket = io.connect('http://localhost:' + PORT);
     socket = io.connect('http://setback.jtyler.site:' + PORT);
     socket.on('connect', function(data) {
         socket.emit('join', myData);
@@ -113,12 +109,9 @@ function card2value(card) {
 function getHand() {
     let hand = myData.hand == undefined ? [] : myData.hand.slice();
     let suit = myData.selectedSuit;
-    if (sortType)
-        hand.sort(function(a,b) {
-            switch(sortType){
-                case 1: return card2value(b) - card2value(a);
-            }
-        });
+    hand.sort(function(a,b) {
+        return card2value(b) - card2value(a);
+    });
     if (suit != undefined)
         hand = hand.filter(card => {
             return Math.floor(card/13) == suit || (card == ((suit+2)%4)*13+9) || card == 52;
@@ -369,11 +362,6 @@ function unselectAll() {
     selectCard(undefined);
     selectSuit(undefined);
     selectBid(undefined);
-}
-
-function sort() {
-    sortType = (sortType+1)%2;
-    refreshHand();
 }
 
 function play() {
