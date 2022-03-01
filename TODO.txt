@@ -1,0 +1,4 @@
+1. Add custom player card images that match the number of cards in that players hand (state 4 only)
+2. Replace face cards with their alternate forms
+3. Add icons indicating which point cards have been caught and by who
+4. Look into KATHY bug where hand cards were whifted off the screen to the right (Possibly wrapping issue)
