@@ -408,7 +408,7 @@ function canPlay(player, card) {
     }
     let suit = card2suit(card);
     let leadCard = gameData.players[gameData.leader].current
-    let leadsuit = leadCard == 52 ? gameData.trump : card2suit(leadCard);
+    let leadsuit = leadCard == 52 || leadCard == offjack() ? gameData.trump : card2suit(leadCard);
     if (card == 52 || suit == gameData.trump || card == offjack() || suit == leadsuit )
         return true;
     else if (leadsuit != gameData.trump && player.hand.filter(card => card2suit(card) == leadsuit && card != offjack()).length == 0)
