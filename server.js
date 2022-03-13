@@ -622,4 +622,5 @@ function play(player) {
 
 function milk() {
     generateNewDeck();
+    sendGameData();
 }
