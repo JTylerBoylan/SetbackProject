@@ -238,7 +238,6 @@ function randomDealer() {
 }
 
 function start() {
-    generateNewDeck();
     let dealer = randomDealer();
     gameData.lastGameLog = "The randomly chosen dealer is " + dealer.displayName;
     gameData.state = DEAL;
@@ -258,6 +257,7 @@ function clearPlayCards() {
 }
 
 function deal(dealer) {
+    generateNewDeck();
     clearHands();
     clearPlayCards();
     gameData.turn = dealer.index;
@@ -621,6 +621,5 @@ function play(player) {
 }
 
 function milk() {
-    generateNewDeck();
-    sendGameData();
+    
 }
