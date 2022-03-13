@@ -622,7 +622,7 @@ function play(player) {
 }
 
 function milk() {
-    gameData.deck.reverse();
+    gameData.deck.cards.reverse();
     gameData.lastGameLog = gameData.players[gameData.dealer].displayName + " milked the cards!";
     sendGameData();
 }
