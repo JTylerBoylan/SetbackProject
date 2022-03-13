@@ -23,6 +23,7 @@ io.on('connection', function(client) {
     clientLeaveEvent(client);
     clientPlayEvent(client);
     clientResetEvent(client);
+    clientMilkEvent(client);
 });
 
 server.listen(3000);
@@ -65,7 +66,13 @@ function clientPlayEvent(client) {
 function clientResetEvent(client) {
     client.on('reset', function(){
         resetGame();
-    })
+    });
+}
+
+function clientMilkEvent (client) {
+    client.on('milk', function() {
+        milk();
+    });
 }
 
 function player2client(player) {
@@ -231,6 +238,7 @@ function randomDealer() {
 }
 
 function start() {
+    generateNewDeck();
     let dealer = randomDealer();
     gameData.lastGameLog = "The randomly chosen dealer is " + dealer.displayName;
     gameData.state = DEAL;
@@ -249,11 +257,10 @@ function clearPlayCards() {
     });
 }
 
-function deal(player) {
-    generateNewDeck();
+function deal(dealer) {
     clearHands();
     clearPlayCards();
-    gameData.turn = player.index;
+    gameData.turn = dealer.index;
     gameData.players.forEach(player => {
         for (let i = 0; i < 6; i++)
             player.hand[i] = nextCardFromDeck();
@@ -611,4 +618,8 @@ function play(player) {
             start();
             break;
     }
+}
+
+function milk() {
+    generateNewDeck();
 }
