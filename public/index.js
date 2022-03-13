@@ -90,7 +90,7 @@ function refreshPlayerNames(){
         playerRightName.style.color = 'firebrick';
     }
     let bidString = " (" + gameData.bid + ")";
-    switch (gameData.dealer) {
+    switch (gameData.bidder) {
         case getPlayerLeft().index:
             playerLeftName.innerText += bidString;
             break;
