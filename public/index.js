@@ -188,12 +188,19 @@ function showPlayerCardImages(tf){
     let topPlayCard = document.getElementById("playertopimage");
     let rightPlayCard = document.getElementById("playerrightimage");
 
-    let playerLeftSize = getPlayerLeft().hand.length;
-    let playerTopSize = getPlayerTop().hand.length;
-    let playerRightSize = getPlayerRight().hand.length;
-    leftPlayCard.src = "src/images/playerhand" + (playerLeftSize > 6 ? 6 : playerLeftSize) + ".png";
-    topPlayCard.src = "src/images/playerhand" + (playerTopSize > 6 ? 6 : playerTopSize) + ".png";
-    rightPlayCard.src = "src/images/playerhand" + (playerRightSize > 6 ? 6 : playerRightSize) + ".png";
+    if (gameData.state > 1) {
+        let playerLeftSize = getPlayerLeft().hand.length;
+        let playerTopSize = getPlayerTop().hand.length;
+        let playerRightSize = getPlayerRight().hand.length;
+        leftPlayCard.src = "src/images/playerhand" + (playerLeftSize > 6 ? 6 : playerLeftSize) + ".png";
+        topPlayCard.src = "src/images/playerhand" + (playerTopSize > 6 ? 6 : playerTopSize) + ".png";
+        rightPlayCard.src = "src/images/playerhand" + (playerRightSize > 6 ? 6 : playerRightSize) + ".png";
+    } else {
+        leftPlayCard.src = "src/images/playerhand0.png";
+        topPlayCard.src = "src/images/playerhand0.png";
+        rightPlayCard.src = "src/images/playerhand0.png";
+
+    }
 
     for (let i = 0; i < playerCardImages.length; i++)
         playerCardImages[i].style.visibility = tf ? 'visible' : 'hidden';
