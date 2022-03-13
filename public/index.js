@@ -89,6 +89,18 @@ function refreshPlayerNames(){
         playerTopName.style.color = 'darkblue';
         playerRightName.style.color = 'firebrick';
     }
+    let bidString = " (" + gameData.bid + ")";
+    switch (gameData.dealer) {
+        case getPlayerLeft().index:
+            playerLeftName.innerText += bidString;
+            break;
+        case getPlayerRight().index:
+            playerRightName.innerText += bidString;
+            break;
+        case getPlayerTop().index:
+            playerTopName.innerText += bidString;
+            break;
+    }
 }
 
 function card2value(card) {
@@ -175,18 +187,14 @@ function showPlayerCardImages(tf){
     let leftPlayCard = document.getElementById("playerleftimage");
     let topPlayCard = document.getElementById("playertopimage");
     let rightPlayCard = document.getElementById("playerrightimage");
-    if (gameData.state == 4) {
-        let playerLeftSize = getPlayerLeft().hand.length;
-        let playerTopSize = getPlayerTop().hand.length;
-        let playerRightSize = getPlayerRight().hand.length;
-        leftPlayCard.src = "src/images/playerhand" + (playerLeftSize > 6 ? 6 : playerLeftSize) + ".png";
-        topPlayCard.src = "src/images/playerhand" + (playerTopSize > 6 ? 6 : playerTopSize) + ".png";
-        rightPlayCard.src = "src/images/playerhand" + (playerRightSize > 6 ? 6 : playerRightSize) + ".png";
-    } else {
-        leftPlayCard.src = "src/images/playerhand6.png";
-        topPlayCard.src = "src/images/playerhand6.png";
-        rightPlayCard.src = "src/images/playerhand6.png";
-    }
+
+    let playerLeftSize = getPlayerLeft().hand.length;
+    let playerTopSize = getPlayerTop().hand.length;
+    let playerRightSize = getPlayerRight().hand.length;
+    leftPlayCard.src = "src/images/playerhand" + (playerLeftSize > 6 ? 6 : playerLeftSize) + ".png";
+    topPlayCard.src = "src/images/playerhand" + (playerTopSize > 6 ? 6 : playerTopSize) + ".png";
+    rightPlayCard.src = "src/images/playerhand" + (playerRightSize > 6 ? 6 : playerRightSize) + ".png";
+
     for (let i = 0; i < playerCardImages.length; i++)
         playerCardImages[i].style.visibility = tf ? 'visible' : 'hidden';
 }
