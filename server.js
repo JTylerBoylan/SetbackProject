@@ -241,6 +241,7 @@ function start() {
     let dealer = randomDealer();
     gameData.lastGameLog = "The randomly chosen dealer is " + dealer.displayName;
     gameData.state = DEAL;
+    generateNewDeck();
     sendGameData();
 }
 
@@ -257,7 +258,6 @@ function clearPlayCards() {
 }
 
 function deal(dealer) {
-    generateNewDeck();
     clearHands();
     clearPlayCards();
     gameData.turn = dealer.index;
@@ -305,7 +305,7 @@ function bid(player) {
     if (gameData.turn == (gameData.dealer+1)%4) {
         gameData.players[gameData.bidder].hand = gameData.players[gameData.bidder].hand.concat(gameData.pile);
         let bidder = gameData.players[gameData.bidder];
-        gameData.lastGameLog = bidder.displayName + " picks the suit.";
+        gameData.lastGameLog = bidder.displayName + " picks the suit. Bid is " + gameData.bid;
         gameData.state = PICKSUIT;
         sendPlayerData(); 
     }
@@ -547,6 +547,7 @@ function trick(player) {
                 gameData.redTeam.stash = [];
                 gameData.blueTeam.stash = [];
                 gameData.lastGameLog = 'Points tallied. ' + gameData.players[gameData.dealer].displayName + "'s deal.";
+                generateNewDeck();
             }
         }
     }
@@ -621,6 +622,7 @@ function play(player) {
 }
 
 function milk() {
+    gameData.deck.reverse();
     gameData.lastGameLog = gameData.players[gameData.dealer].displayName + " milked the cards!";
     sendGameData();
 }
