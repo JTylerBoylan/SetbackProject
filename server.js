@@ -621,5 +621,6 @@ function play(player) {
 }
 
 function milk() {
-    
+    gameData.lastGameLog = gameData.players[gameData.dealer].displayName + " milked the cards!";
+    sendGameData();
 }
