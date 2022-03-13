@@ -202,64 +202,90 @@ function showBids(tf){
 
 function showSuitButtons(tf) {
     let suitdiv = document.getElementById("suitdiv");
-    suitdiv.style.visibility = tf && gameData.bidder == myData.index ? 'visible' : 'hidden';
+    suitdiv.style.visibility = tf ? 'visible' : 'hidden';
 }
 
 function showWinners(tf) {
     let winnerdiv = document.getElementById("winner");
-    winnerdiv.style.display = tf ? 'block' : 'none';
+    winnerdiv.style.visibility = tf ? 'visible' : 'hidden';
+}
+
+function showPlayButton(tf) {
+    let playdiv = document.getElementById("playdiv");
+    let playbutton = document.getElementById("playbutton");
+    playdiv.style.visibility = tf ? 'visible' : 'hidden';
+    playbutton.innerText = gameData.state == 1 || gameData.state == 4 ? "DEAL" : "PLAY";
+}
+
+function showMilkButton(tf) {
+    let milkdiv = document.getElementById("milkdiv");
+    milkdiv.style.visibility = tf ? 'visible' : 'hidden';
 }
 
 function refreshGameImages() {
     switch(gameData.state){
-        case 0:
+        case 0: // PREGAME
             showPlayerCardImages(false);
             showPileImage(false);
             showBids(false);
             showSuitButtons(false);
             showWinners(false);
+            showPlayButton(true);
+            showMilkButton(false);
             break;
-        case 1:
+        case 1: // DEAL
             showPlayerCardImages(false);
             showPileImage(false);
             showBids(false);
             showSuitButtons(false);
             showWinners(false);
+            showPlayButton(gameData.dealer == myData.index);
+            showMilkButton(gameData.dealer == myData.index);
             break;
-        case 2:
+        case 2: // BID
             showPlayerCardImages(true);
             showPileImage(true);
             showBids(true);
             showSuitButtons(false);
             showWinners(false);
+            showPlayButton(gameData.turn == myData.index);
+            showMilkButton(false);
             break;
-        case 3:
+        case 3: // PICKSUIT
             showPlayerCardImages(true);
             showPileImage(false);
             showBids(false);
-            showSuitButtons(true);
+            showSuitButtons(gameData.bidder == myData.index);
             showWinners(false);
+            showPlayButton(gameData.bidder == myData.index);
+            showMilkButton(false);
             break;
-        case 4:
+        case 4: // DEAL2
             showPlayerCardImages(true);
             showPileImage(false);
             showBids(false);
             showSuitButtons(false);
             showWinners(false);
+            showPlayButton(gameData.dealer == myData.index);
+            showMilkButton(false);
             break;
-        case 5:
+        case 5: // TRICK
             showPlayerCardImages(true);
             showPileImage(false);
             showBids(false);
             showSuitButtons(false);
             showWinners(false);
+            showPlayButton(gameData.turn == myData.index);
+            showMilkButton(false);
             break;
-        case 6:
+        case 6: // FINAL
             showPlayerCardImages(false);
             showPileImage(false);
             showBids(false);
             showSuitButtons(false);
             showWinners(true);
+            showPlayButton(false);
+            showMilkButton(false);
             break;
 
     }
@@ -382,4 +408,8 @@ function unselectAll() {
 function play() {
     socket.emit('play', myData);
     unselectAll();
+}
+
+function milk() {
+    socket.emit('milk');
 }
